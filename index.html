@@ -23,17 +23,21 @@ body {
     padding: 20px;
     border-radius: 20px;
     width: 90%;
-    max-width: 350px;
+    max-width: 450px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
 h1 {
     color: #d63384;
-    font-size: 22px;
+    font-size: 28px;
 }
 
 p {
-    font-size: 14px;
+    font-size: 20px;
+    color: purple ;
+    background: #ffe6e6;
+    padding: 6px 1px;
+    border-radius: 8px;
 }
 
 .buttons {
@@ -41,6 +45,7 @@ p {
     justify-content: center;
     gap: 15px;
     margin-top: 20px;
+    
 }
 
 button {
@@ -99,7 +104,7 @@ button {
 </div>
 
 <div id="success-message" class="container">
-    <h1>Ab tum bhaag nahi sakti 😈❤️</h1>
+    <h1>Ab tum bhaag nahi sakti 🤓❤️</h1>
     <p>Finally maan hi gayi 😍</p>
 </div>
 
@@ -112,7 +117,7 @@ let messages = [
     "Galat button hai 😏",
     "Sach me?? 😳",
     "Try harder 😈",
-    "Nahi allowed 😝"
+    "Nahi allowed 🤠"
 ];
 
 // NO BUTTON bhaagega
@@ -143,7 +148,7 @@ function handleYes() {
     yesClicks++;
 
     if (yesClicks < 3) {
-        alert("Itni jaldi kya hai? Thoda convince karo 😏");
+        alert("Itni jaldi kya hai? Thoda or mje lene do 😏");
         return;
     }
 
