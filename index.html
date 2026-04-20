@@ -1,128 +1,174 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ek Zaroori Sawal ❤️</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #ffe6e6;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
-            text-align: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ek Zaroori Sawal ❤️</title>
 
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
+<style>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #ffe6e6;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    overflow: hidden;
+}
 
-        h1 {
-            color: #d63384;
-            margin-bottom: 20px;
-        }
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 350px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
 
-        .gif_container img {
-            width: 200px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
+h1 {
+    color: #d63384;
+    font-size: 22px;
+}
 
-        .buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
-            height: 100px;
-        }
+p {
+    font-size: 14px;
+}
 
-        button {
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
 
-        #yesBtn {
-            background-color: #28a745;
-            color: white;
-        }
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
 
-        #noBtn {
-            background-color: #dc3545;
-            color: white;
-            position: absolute;
-        }
+#yesBtn {
+    background: #28a745;
+    color: white;
+}
 
-        #success-message {
-            display: none;
-        }
+#noBtn {
+    background: #dc3545;
+    color: white;
+    position: absolute;
+}
+#noBtn {
+    background: #dc3545;
+    color: white;
+    position: absolute;
+    transition: left 0.4s ease, top 0.4s ease; /* 🔥 smooth movement */
+}
+#success-message {
+    display: none;
+}
 
-        .heart {
-            color: #e25555;
-        }
-    </style>
+/* Emoji rain */
+.emoji {
+    position: absolute;
+    font-size: 24px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-50px); }
+    100% { transform: translateY(100vh); }
+}
+</style>
 </head>
+
 <body>
 
-    <div id="main-content" class="container">
-             <h1> Hello Meri Meenu 😘</h1>
-        <h1>Kya tum meri banna chahogi? <span class="heart">❤️</span></h1>
-        <p>(Zyada sochna mat, options limited hain! 😂)</p>
-        
-        <div class="buttons">
-            <button id="yesBtn" onclick="celebrate()">Haan!</button>
-            <button id="noBtn" onmouseover="moveNoButton()">Nahi</button>
-        </div>
+<div id="main-content" class="container">
+    <h1>Hello Meri Meenu 😘</h1>
+    <h1>Kya tum meri banna chahogi? ❤️</h1>
+    <p id="funText">(Soch samajh ke 😏)</p>
+
+    <div class="buttons">
+        <button id="yesBtn" onclick="handleYes()">Haan!</button>
+        <button id="noBtn" ontouchstart="moveNo()" onmouseover="moveNo()">Nahi</button>
     </div>
+</div>
 
-    <div id="success-message" class="container">
-        <h1 style="color: #d63384;">Choice Achhi Hai  Tumhari 😍❤️</h1>
-        
-        <h1 style="color: #d63384;">Yayyy! I knew it! 😍❤️</h1>
-        <p>Ab hum party karenge! Love you!</p>
-    </div>
+<div id="success-message" class="container">
+    <h1>Ab tum bhaag nahi sakti 😈❤️</h1>
+    <p>Finally maan hi gayi 😍</p>
+</div>
 
-    <script>
-        let yesBtnSize = 18;
-        let noClicks = 0;
+<script>
+let yesClicks = 0;
+let yesSize = 16;
 
-        function moveNoButton() {
-            const noBtn = document.getElementById('noBtn');
-            const yesBtn = document.getElementById('yesBtn');
-            
-            // "No" button ki position random set karna
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            
-            noBtn.style.left = x + 'px';
-            noBtn.style.top = y + 'px';
+let messages = [
+    "Arey soch le 😂",
+    "Galat button hai 😏",
+    "Sach me?? 😳",
+    "Try harder 😈",
+    "Nahi allowed 😝"
+];
 
-            // "Yes" button ko bada karna har baar jab wo "No" pe hover karegi
-            yesBtnSize += 10;
-            yesBtn.style.fontSize = yesBtnSize + 'px';
-            yesBtn.style.padding = (yesBtnSize / 1.2) + 'px ' + (yesBtnSize * 1.5) + 'px';
-        }
+// NO BUTTON bhaagega
+function moveNo() {
+    const noBtn = document.getElementById("noBtn");
+    const funText = document.getElementById("funText");
+    const yesBtn = document.getElementById("yesBtn");
 
-        function celebrate() {
-            document.getElementById('main-content').style.display = 'none';
-            document.getElementById('success-message').style.display = 'block';
-            document.body.style.backgroundColor = '#ffc1cc';
-            
-            // Chota sa confetti effect (optional)
-            alert("Mubarak ho! Aapne sahi faisla liya hai! 😘");
-        }
-    </script>
+    let x = Math.random() * (window.innerWidth - 100);
+    let y = Math.random() * (window.innerHeight - 100);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    funText.innerText = messages[Math.floor(Math.random()*messages.length)];
+
+    // Yes button bada hota jayega 😆
+    yesSize += 5;
+    yesBtn.style.fontSize = yesSize + "px";
+
+    if (navigator.vibrate) {
+        navigator.vibrate(50);
+    }
+}
+
+// YES button logic 😏
+function handleYes() {
+    yesClicks++;
+
+    if (yesClicks < 3) {
+        alert("Itni jaldi kya hai? Thoda convince karo 😏");
+        return;
+    }
+
+    document.getElementById("main-content").style.display = "none";
+    document.getElementById("success-message").style.display = "block";
+    document.body.style.background = "#ffc1cc";
+
+    startEmojiRain();
+}
+
+// Emoji rain 🎉
+function startEmojiRain() {
+    for (let i = 0; i < 25; i++) {
+        let emoji = document.createElement("div");
+        emoji.classList.add("emoji");
+
+        emoji.innerText = ["❤️","😍","😘","🎉"][Math.floor(Math.random()*4)];
+
+        emoji.style.left = Math.random() * 100 + "vw";
+        emoji.style.animationDuration = (Math.random()*2 + 1) + "s";
+
+        document.body.appendChild(emoji);
+    }
+}
+</script>
+
 </body>
 </html>
